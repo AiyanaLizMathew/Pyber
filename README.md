@@ -49,8 +49,8 @@ Bubble_DF=pd.merge(Bubble_DF1,Bubble_DF2,on=["type","city"])
 # Renaming the columns to relevant column name
 Bubble_DF=Bubble_DF.rename(columns={"ride_id":"no_of_rides","fare":"avg_fare"})
 
-# Setting the x_axis, y_axis and size of markers
-size=0.5*Combined_data.groupby(["type","city"],as_index=True).sum()["driver_count"]
+# Setting the size of markers by reading the driver count for each city
+size=5*City_data.groupby(["type","city"],as_index=True).sum()["driver_count"]
 
 # Creates the scatter chart based upon the values above
 sns.lmplot(x="no_of_rides",y="avg_fare",data=Bubble_DF,fit_reg=False,hue="type",legend_out=False,
@@ -58,14 +58,14 @@ sns.lmplot(x="no_of_rides",y="avg_fare",data=Bubble_DF,fit_reg=False,hue="type",
            palette=dict(Rural="gold", Suburban="lightskyblue", Urban="lightcoral"))
 
 # Setting the legend title, markerscale
-plt.legend(title="City Types",loc="best",markerscale=0.3)
+plt.legend(title="City Types",loc="best",markerscale=0.5,edgecolor="black")
 
 # Setting the grid style
 plt.grid(linestyle="dotted")
 
 # Setting the x_axis and y_axis limits
 plt.xlim(0,70)
-plt.ylim(15,50)
+plt.ylim(15,55)
 
 # Setting the title, x_axis and y_axis labels
 plt.title("Pyber Ride Sharing Data (2016)", fontsize=16)
